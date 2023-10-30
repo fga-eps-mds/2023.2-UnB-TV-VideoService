@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+    db:
+        image: "postgres:alpine"
+        container_name: "db"
+        env_file:
+            - .env
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+
+    api:
+        depends_on:
+            - db
+        build:
+            context: ./
+        container_name: video-service
+        links:
+            - db
+        ports:
+            - "8081:8081"
+        volumes:
+            - ./:/app
+        environment:
+            - DEBUG=True
+volumes:
+    postgres:
