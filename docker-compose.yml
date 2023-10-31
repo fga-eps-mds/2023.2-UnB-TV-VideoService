@@ -10,6 +10,8 @@ services:
             - postgres:/var/lib/postgresql/data
         ports:
             - "5432:5432"
+        networks:
+            - simple-network
 
     api:
         depends_on:
@@ -23,7 +25,12 @@ services:
             - "8081:8081"
         volumes:
             - ./:/app
+        networks:
+            - simple-network
         environment:
             - DEBUG=True
+networks:
+    simple-network:
+        driver: bridge
 volumes:
     postgres:

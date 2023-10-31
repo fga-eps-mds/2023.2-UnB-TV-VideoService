@@ -7,6 +7,9 @@ ENV PYTHONBUFFERED 1
 
 COPY . .
 
+RUN apt-get update
+RUN apt-get -y install libpq-dev gcc 
+
 ENV PYTHONPATH "/app/src"
 RUN pip install -r requirements.txt
  
