@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 from domain import commentSchema
 from model import commentModel
 
-def get_comment_by_id(db: Session, video_id: int):
+def get_comments_by_video_id(db: Session, video_id: int):
    return db.query(commentModel.Comment).filter(commentModel.Comment.video_id == video_id).all()
 
-def get_comments(db: Session, skip: int = 0, limit: int = 100):
-   return db.query(commentModel.Comment).offset(skip).limit(limit).all()
+def get_comment_by_id(db: Session, id: int):
+   return db.query(commentModel.Comment).filter(commentModel.Comment.id == id).first()
 
 def create_comment(db: Session, video_id, user_id, content):
   db_comment = commentModel.Comment(video_id=video_id, user_id=user_id, content=content)
