@@ -28,3 +28,10 @@ def delete_comment(id: int, db: Session = Depends(get_db)):
   commentRepository.delete_comment(db,comment)
   return comment
 
+@comment.patch("/{id}", response_model=commentSchema.Comment)
+def update_comment(id: int, data: commentSchema.CommentUpdate,db: Session = Depends(get_db)):
+  comment = commentRepository.get_comment_by_id(db, id)
+  if not comment:
+    raise HTTPException(status_code=404, detail=errorMessages.COMMENT_NOT_FOUND)
+  updated_comment = commentRepository.update_comment(db,comment,data)
+  return updated_comment

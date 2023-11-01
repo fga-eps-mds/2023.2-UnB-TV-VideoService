@@ -2,8 +2,6 @@ from datetime import date
 from pydantic import BaseModel, ConfigDict
 
 class CommentUpdate(BaseModel):
-  #user_id: str | None = None
-  video_id: int | None = None
   content: str | None = None
 
 class Comment(BaseModel):
