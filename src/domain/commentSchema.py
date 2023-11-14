@@ -8,6 +8,7 @@ class Comment(BaseModel):
   model_config = ConfigDict(from_attributes = True)
   id: int
   user_id: int
+  user_name: str
   video_id: int
   content: str
   created_at: date
@@ -15,6 +16,7 @@ class Comment(BaseModel):
 class CommentCreate(BaseModel):
   model_config = ConfigDict(from_attributes = True)
   user_id: int
+  user_name: str
   video_id: int
-  content: str
+  content: str 
   

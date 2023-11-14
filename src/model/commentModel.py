@@ -12,6 +12,7 @@ class Comment(Base):
   id = Column(Integer, primary_key=True, index=True)
   video_id = Column(Integer, nullable=False)
   user_id = Column(Integer, nullable=False)
+  user_name = Column(String, nullable=False)
   content = Column(String, nullable=False)
   created_at = Column(Date, nullable=False, default=datetime.now()) 
   
