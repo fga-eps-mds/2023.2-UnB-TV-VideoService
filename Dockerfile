@@ -5,14 +5,12 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONBUFFERED 1
 
-COPY . .
+COPY requirements.txt /app/requirements.txt
 
-RUN apt-get update
-RUN apt-get -y install libpq-dev gcc 
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
 
-ENV PYTHONPATH "/app/src"
-RUN pip install -r requirements.txt
+COPY  .  /app/
  
-EXPOSE 8081
+WORKDIR src
 
-CMD [ "uvicorn", "src.main:app", "--host", "0.0.0.0","--port", "8081","--reload"]
+CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
