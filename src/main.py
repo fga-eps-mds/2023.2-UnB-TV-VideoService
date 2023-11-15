@@ -1,8 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
+from controller import scheduleController
 
 app = FastAPI()
 
+
+app.include_router(prefix="/api", router=scheduleController.schedule)
 
 @app.get("/")
 async def root():
