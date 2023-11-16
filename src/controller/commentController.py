@@ -17,8 +17,7 @@ def read_comment(video_id: int, db: Session = Depends(get_db)):
 
 @comment.post("/", response_model=commentSchema.Comment)
 def create_comment(comment: commentSchema.CommentCreate, db: Session = Depends(get_db)):
-  return commentRepository.create_comment(db=db, video_id=comment.video_id, 
-  user_id=comment.user_id, user_name= comment.user_name ,content=comment.content)
+  return commentRepository.create_comment(db=db, video_id=comment.video_id, user_id=comment.user_id, user_name= comment.user_name ,content=comment.content)
 
 @comment.delete("/{id}", response_model=commentSchema.Comment)
 def delete_comment(id: int, db: Session = Depends(get_db)):

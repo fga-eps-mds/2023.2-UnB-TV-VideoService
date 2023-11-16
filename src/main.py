@@ -1,10 +1,13 @@
-import uvicorn
+import uvicorn, sys
 from fastapi import FastAPI
+from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+
+load_dotenv()
+
 from controller import commentController
 from database import SessionLocal, engine
 from model import commentModel
-from fastapi.middleware.cors import CORSMiddleware
-import sys
 
 commentModel.Base.metadata.create_all(bind=engine)
 
@@ -26,7 +29,7 @@ async def root():
 
 app.include_router(prefix="/api", router=commentController.comment)
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
   port = 8001
   if (len(sys.argv) == 2):
     port = sys.argv[1]
