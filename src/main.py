@@ -27,7 +27,7 @@ async def root():
 app.include_router(prefix="/api", router=commentController.comment)
 
 if __name__ == '__main__':
-  port = 8081
+  port = 8001
   if (len(sys.argv) == 2):
     port = sys.argv[1]
 
