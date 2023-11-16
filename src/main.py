@@ -4,6 +4,7 @@ from controller import commentController
 from database import SessionLocal, engine
 from model import commentModel
 from fastapi.middleware.cors import CORSMiddleware
+import sys
 
 commentModel.Base.metadata.create_all(bind=engine)
 
@@ -26,4 +27,8 @@ async def root():
 app.include_router(prefix="/api", router=commentController.comment)
 
 if __name__ == '__main__':
-  uvicorn.run('main:app', reload=True)
+  port = 8081
+  if (len(sys.argv) == 2):
+    port = sys.argv[1]
+
+  uvicorn.run('main:app', reload=True, port=int(port), host="0.0.0.0")
