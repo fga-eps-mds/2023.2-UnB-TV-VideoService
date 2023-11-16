@@ -13,11 +13,11 @@ schedule = APIRouter(
 )
 
 @schedule.get("/")
-async def read_comment(day: Optional[str] = None):
+async def get_schedule_day(day: Optional[str] = None):
   if day:
     day = unidecode(day).upper()
     if not enumeration.ScheduleDaysEnum.has_value(day):
-      return JSONResponse(status_code=400, content={ "error": errorMessages.INVALID_SCHEDULE_DAY })
+      return JSONResponse(status_code=400, content={ "detail": errorMessages.INVALID_SCHEDULE_DAY })
 
   try:
     re = requests.get('https://unbtv.unb.br/grade')
