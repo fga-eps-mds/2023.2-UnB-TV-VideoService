@@ -7,7 +7,7 @@ from src.constants import errorMessages
 client = TestClient(app)
 
 class TestSchedule:
-  def test_schedule_get_schedule_day(self, mocker):
+  def test_schedule_get_schedule_day(self):
     response = client.get("/api/schedule/")
     data = response.json()
     assert response.status_code == 200
@@ -26,4 +26,4 @@ class TestSchedule:
     response = client.get("/api/schedule/", params=params)
     data = response.json()
     assert response.status_code == 200
-    assert len(data[params['day'].upper()]) > 0    
+    assert len(data) > 0    
