@@ -23,7 +23,12 @@ class TestVideoComment:
   @pytest.fixture(scope="session", autouse=True)
   def setup(self):
     response = client.post('/api/comments/', json=comment)
-    print(response)
+    data = response.json()
+    assert response.status_code == 200
+    assert data['user_id'] == comment['user_id']
+    assert data['user_name'] == comment['user_name']
+    assert data['video_id'] == comment['video_id']
+    assert data['content'] == comment['content']
 
     yield
     
