@@ -28,7 +28,7 @@ app.include_router(prefix="/api", router=scheduleController.schedule)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello from Video Service"}
+    return {"message": "Hello from Video Service!"}
 
 if __name__ == '__main__': # pragma: no cover
   port = 8001
