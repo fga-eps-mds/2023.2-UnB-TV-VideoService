@@ -25,7 +25,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello from Video Service"}
+    return {"message": "Hello from Video Service!"}
 
 
 app.include_router(prefix="/api", router=commentController.comment)
