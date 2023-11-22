@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-from controller import commentController
+from controller import commentController, scheduleController
 from database import SessionLocal, engine
 from model import commentModel
 
@@ -23,12 +23,12 @@ app.add_middleware(
     allow_headers=["*"],
 ) 
 
+app.include_router(prefix="/api", router=commentController.comment)
+app.include_router(prefix="/api", router=scheduleController.schedule)
+
 @app.get("/")
 async def root():
     return {"message": "Hello from Video Service"}
-
-
-app.include_router(prefix="/api", router=commentController.comment)
 
 if __name__ == '__main__': # pragma: no cover
   port = 8001
