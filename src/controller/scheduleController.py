@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 from starlette.responses import JSONResponse
+from datetime import datetime
 
 from utils import enumeration
 from constants import errorMessages
@@ -13,7 +14,7 @@ schedule = APIRouter(
 )
 
 @schedule.get("/")
-async def get_schedule_day(day: Optional[str] = None):
+async def get_schedule_day(day: Optional[str] = [i.value for i in enumeration.ScheduleDaysEnum][datetime.now().weekday()]):
   if day:
     day = unidecode(day).upper()
     if not enumeration.ScheduleDaysEnum.has_value(day):
@@ -35,13 +36,9 @@ async def get_schedule_day(day: Optional[str] = None):
           cell = row.find_all("td")[0]
           schedule_day = unidecode(cell.text.replace("-FEIRA", ""))
           
-          if day:
-            if current_day:
-              return schedule_data
-            if day == schedule_day:
-              current_day = schedule_day
-              schedule_data[schedule_day] = []
-          else:
+          if current_day:
+            return schedule_data
+          if day == schedule_day:
             current_day = schedule_day
             schedule_data[schedule_day] = []
         else:

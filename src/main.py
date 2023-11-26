@@ -26,7 +26,7 @@ app.add_middleware(
 app.include_router(prefix="/api", router=commentController.comment)
 app.include_router(prefix="/api", router=scheduleController.schedule)
 
-@app.get("/")
+@app.get("/") # pragma: no cover
 async def root():
     return {"message": "Hello from Video Service"}
 
