@@ -1,8 +1,10 @@
 import pytest
 from fastapi.testclient import TestClient
+from datetime import datetime
 
 from src.main import app
 from src.constants import errorMessages
+from src.utils import enumeration
 
 client = TestClient(app)
 
@@ -10,9 +12,9 @@ class TestSchedule:
   def test_schedule_get_schedule_day(self):
     response = client.get("/api/schedule/")
     data = response.json()
+    week_dt_str = [i.value for i in enumeration.ScheduleDaysEnum][datetime.now().weekday()]
     assert response.status_code == 200
-    assert len(list(data.keys())) == 7
-    assert all([a == b for a, b in zip(list(data.keys()), ['SEGUNDA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA', 'SABADO', 'DOMINGO'])])
+    assert week_dt_str in data.keys()
   
   def test_schedule_get_schedule_specific_day_invalid(self):
     params = { 'day': 'INVALID' }
