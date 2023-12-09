@@ -1,5 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
+from unittest.mock import patch
 
 from src.main import app
 from src.constants import errorMessages
@@ -27,3 +28,13 @@ class TestSchedule:
     data = response.json()
     assert response.status_code == 200
     assert len(data) > 0    
+
+  def test_schedule_get_schedule_day_exception_handling(self):
+        with patch("src.controller.scheduleController.requests.get") as mock_get:
+            mock_get.side_effect = Exception("Test exception")
+
+            response = client.get("/api/schedule/")
+            data = response.json()
+
+            assert response.status_code == 400
+            assert data['error'] == errorMessages.ERROR_RETRIEVING_SCHEDULE
